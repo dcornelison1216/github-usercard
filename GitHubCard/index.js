@@ -2,6 +2,8 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+
+// create card for my profile
 axios.get('https://api.github.com/users/dcornelison1216')
 .then(response => {
   console.log('this is what the get got ', response.data)
@@ -32,12 +34,21 @@ axios.get('https://api.github.com/users/dcornelison1216')
           user, and adding that card to the DOM.
 */
 
-const followersArray = ['mhidalgo83', 'Etriz', 'fadygouda', 'TheTrabin', 'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
-followersArray.forEach(user => {
-  axios.get(`https://api.github.com/users/${user}`)
-  .then(response => {
-    const userProfileCard = userCard(response.data)
-    entryPoint.appendChild(userProfileCard)
+// const followersArray = ['mhidalgo83', 'Etriz', 'fadygouda', 'TheTrabin', 'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+// followersArray.forEach(user => {
+//   axios.get(`https://api.github.com/users/${user}`)
+//   .then(response => {
+//     const userProfileCard = userCard(response.data)
+//     entryPoint.appendChild(userProfileCard)
+//   })
+// })
+
+// create card for each of my followers
+axios.get('https://api.github.com/users/dcornelison1216/followers')
+.then(response => {
+  response.data.forEach(user => {
+    const newUserCard = userCard(user)
+    entryPoint.appendChild(newUserCard)
   })
 })
 
@@ -79,7 +90,7 @@ const userCard = (obj) => {
   const href = document.createElement('a')
   href.href = obj.html_url
   href.target = '_blank'
-  href.textContent = '{address to users github page}'
+  href.textContent = obj.html_url
   profile.appendChild(href)
   //     </p>
   //     <p>Followers: {users followers count}</p>
