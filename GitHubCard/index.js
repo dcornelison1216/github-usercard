@@ -6,8 +6,6 @@
 // create card for my profile
 axios.get('https://api.github.com/users/dcornelison1216')
 .then(response => {
-  console.log('this is what the get got ', response.data)
-
   const myProfileCard = userCard(response.data)
   entryPoint.appendChild(myProfileCard)
 })
